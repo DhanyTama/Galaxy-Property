@@ -19,7 +19,7 @@ class PaymentProcessingController extends Controller
 
         $approvedRequests = SalaryRequest::where('status', 'approved')->with(['user', 'approvedBy'])->latest()->paginate(10);
 
-        return view('payments.process.index', compact('approvedRequests'));
+        return view('payment-process.index', compact('approvedRequests'));
     }
 
     public function complete(Request $request, SalaryRequest $salaryRequest): RedirectResponse
@@ -49,6 +49,6 @@ class PaymentProcessingController extends Controller
             $director->notify(new SalaryPaymentCompleted($salaryRequest));
         }
 
-        return redirect()->route('payments.process.index')->with('success', 'Pembayaran gaji berhasil diproses dan bukti diunggah!');
+        return redirect()->route('payment-process.index')->with('success', 'Pembayaran gaji berhasil diproses dan bukti diunggah!');
     }
 }
